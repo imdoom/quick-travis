@@ -9,11 +9,11 @@ import EmergencyContacts from './Functions/contacts';
   }
   const user = "Akshay";
   const { getByTestID  } = render(<EmergencyContacts contacts={ contacts } user={user} setContacts={setContacts}/>);
-  /* const xButton = getByText("X");
+  const xButton = getByText("X");
   const table = getByTestID("emergency");
   fireEvent.click(xButton);
-  expect(table).toBe(null); */
-  // expect(container.querySelector('#checkin-button').textContent).toBe('CheckIn');
+  expect(table).toBe(null); 
+   expect(container.querySelector('#checkin-button').textContent).toBe('CheckIn');
   const id = getByTestId("emergency");
   expect(id.textContent).toBe('X');
 }); */

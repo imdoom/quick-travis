@@ -164,11 +164,11 @@ const App = () => {
       <Banner user={user} />
       <br/><br/>
 
-      <Title subtitle size={4} className='checkin-text' hidden={ !disabled }>You CheckedIn!</Title>
+      <Title data-cy="checkedin" subtitle size={4} className='checkin-text' hidden={ !disabled }>You CheckedIn!</Title>
       <Title className='checkin-text' hidden={ disabled }>Please CheckIn!</Title>
 
       <Button.Group align="centered">
-        <Button id='checkin-button' rounded={ true } color={ 'danger' } size={ 'large' } onClick={()=>{ alert("You have checked in!");ButtonClick(contacts);} } disabled={ disabled }>CheckIn</Button>
+        <Button data-cy="checkin" id='checkin-button' rounded={ true } color={ 'danger' } size={ 'large' } onClick={()=>{ alert("You have checked in!");ButtonClick(contacts);} } disabled={ disabled }>CheckIn</Button>
       </Button.Group>
 
 
