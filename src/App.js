@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'rbx/index.css';
-import { Title, Button, Container, Table, Field, Control, Input, Content, Message } from 'rbx';
+import { Title, Button, Container, Field, Control, Input, Content, Message } from 'rbx';
 import FirebaseHelper from './Functions/FirebaseHelper';
+import EmergencyContacts from './Functions/contacts';
 import * as emailjs from 'emailjs-com'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
@@ -133,14 +134,6 @@ const App = () => {
       })
   }
 
-  const RemoveContact = (contact) => {
-    FirebaseHelper.RemoveContact(contact, user);
-
-    FirebaseHelper.FetchContacts(user).then(currContacts => {
-      setContacts(currContacts);
-    })
-  }
-
   const AddContact = (name, email) => {
     if (!RegExp('[a-zA-Z0-9-_.]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+').test(email)) {
       setInvalidEmail(true);
@@ -161,27 +154,7 @@ const App = () => {
     }
   }
 
-  const EmergencyContacts = ({contacts}) => {
-    return (
-      <Table id='contact-table'>
-        <Table.Body>
-          {contacts.map(contact =>
-            <Table.Row key={contact.name.concat('_', contact.email)}>
-              <Table.Cell>
-                {contact.name}
-              </Table.Cell>
-              <Table.Cell>
-                {contact.email}
-              </Table.Cell>
-              <Table.Cell>
-                <Button onClick={()=>{RemoveContact(contact)}}>X</Button>
-              </Table.Cell>
-            </Table.Row>
-          )}
-        </Table.Body>
-      </Table>
-    );
-  };
+  
 
   var currName = '';
   var currNum = '';
@@ -189,10 +162,7 @@ const App = () => {
   return (
     <Container>
       <Banner user={user} />
-      <br/>
-
-
-      <br/>
+      <br/><br/>
 
       <Title subtitle size={4} className='checkin-text' hidden={ !disabled }>You CheckedIn!</Title>
       <Title className='checkin-text' hidden={ disabled }>Please CheckIn!</Title>
@@ -211,7 +181,7 @@ const App = () => {
       
       <div hidden={!showContacts}>
       <Title size={5} id='contact-header'>Emergency Contacts</Title>
-      <EmergencyContacts contacts={ contacts }/>
+      <EmergencyContacts contacts={ contacts } user={user} setContacts={setContacts}/>
       <br/>
       
       <Field>
